@@ -6,12 +6,12 @@ pub fn task_01(tuple: &mut (i32, i32), a: bool) -> &mut i32 {
     }
 }
 
-pub fn task_02(arr: &mut [i32; 3], n: usize) -> i32 {
-    arr[n]
+pub fn task_02(arr: &mut [i32; 3], n: usize) -> &mut i32 {
+    &mut arr[n]
 }
 
-pub fn task_03(slice: &[i32], n: usize) -> i32 {
-    slice[slice.len() - n]
+pub fn task_03(slice: &mut [i32], n: usize) -> &mut i32 {
+    &mut slice[slice.len() - n]
 }
 
 pub fn task_04(slice: &[i32], n: usize) -> (&[i32], &[i32]) {
@@ -49,14 +49,13 @@ mod tests {
     #[test]
     fn task_02_test_slice() {
         let mut test_slice = [2, 4, 100];
-        assert_eq!(task_02(&mut test_slice, 2), 100);
+        assert_eq!(*task_02(&mut test_slice, 2), 100);
     }
 
     #[test]
     fn task_03_slice_test() {
-        let t = [2, 4, 100, 3, 5, 6, 7, 8, 9, 10];
-        let my_slice = &t;
-        assert_eq!(task_03(my_slice, 5), 6);
+        let mut t = [2, 4, 100, 3, 5, 6, 7, 8, 9, 10];
+        assert_eq!(*task_03(&mut t, 5), 6);
     }
 
     #[test]
