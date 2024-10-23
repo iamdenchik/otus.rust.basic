@@ -19,15 +19,10 @@ pub fn task_04(slice: &[i32], n: usize) -> (&[i32], &[i32]) {
 }
 
 pub fn task_05(slice: &[i32]) -> (&[i32], &[i32], &[i32], &[i32]) {
-    let len = slice.len();
-    let part_size = len / 4;
-
-    (
-        &slice[..part_size],
-        &slice[part_size..2 * part_size],
-        &slice[2 * part_size..3 * part_size],
-        &slice[3 * part_size..],
-    )
+    let a = task_04(slice, slice.len() / 2);
+    let b = task_04(a.0, a.0.len() / 2);
+    let c = task_04(a.1, a.1.len() / 2);
+    (b.0, b.1, c.0, c.1)
 }
 
 #[cfg(test)]
@@ -83,20 +78,20 @@ mod tests {
     fn task_05_slice_1() {
         let t = [2, 4, 100, 3, 5, 6, 7, 8, 9, 10];
         let my_slice = &t;
-        assert_eq!(task_05(my_slice).1, &[100, 3]);
+        assert_eq!(task_05(my_slice).1, &[100, 3, 5]);
     }
 
     #[test]
     fn task_05_slice_2() {
         let t = [2, 4, 100, 3, 5, 6, 7, 8, 9, 10];
         let my_slice = &t;
-        assert_eq!(task_05(my_slice).2, &[5, 6]);
+        assert_eq!(task_05(my_slice).2, &[6, 7]);
     }
 
     #[test]
     fn task_05_slice_3() {
         let t = [2, 4, 100, 3, 5, 6, 7, 8, 9, 10];
         let my_slice = &t;
-        assert_eq!(task_05(my_slice).3, &[7, 8, 9, 10]);
+        assert_eq!(task_05(my_slice).3, &[8, 9, 10]);
     }
 }
