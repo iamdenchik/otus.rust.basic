@@ -18,11 +18,11 @@ pub fn task_04(slice: &[i32], n: usize) -> (&[i32], &[i32]) {
     (&slice[..n], &slice[n..])
 }
 
-pub fn task_05(slice: &[i32]) -> (&[i32], &[i32], &[i32], &[i32]) {
-    let a = task_04(slice, slice.len() / 2);
-    let b = task_04(a.0, a.0.len() / 2);
-    let c = task_04(a.1, a.1.len() / 2);
-    (b.0, b.1, c.0, c.1)
+pub fn task_05(slice: &[i32]) -> [&[i32]; 4] {
+    let (first_half, second_half) = task_04(slice, slice.len() / 2);
+    let (s1, s2) = task_04(first_half, first_half.len() / 2);
+    let (s3, s4) = task_04(second_half, second_half.len() / 2);
+    [s1, s2, s3, s4]
 }
 
 #[cfg(test)]
@@ -56,42 +56,51 @@ mod tests {
     #[test]
     fn task_04_slice_0() {
         let t = [2, 4, 100, 3, 5, 6, 7, 8, 9, 10];
-        let my_slice = &t;
-        assert_eq!(task_04(my_slice, 5).0, &[2, 4, 100, 3, 5]);
+        assert_eq!(task_04(&t, 5).0, &[2, 4, 100, 3, 5]);
     }
 
     #[test]
     fn task_04_slice_1() {
         let t = [2, 4, 100, 3, 5, 6, 7, 8, 9, 10];
-        let my_slice = &t;
-        assert_eq!(task_04(my_slice, 5).1, &[6, 7, 8, 9, 10]);
+        assert_eq!(task_04(&t, 5).1, &[6, 7, 8, 9, 10]);
     }
 
     #[test]
     fn task_05_slice_0() {
         let t = [2, 4, 100, 3, 5, 6, 7, 8, 9, 10];
-        let my_slice = &t;
-        assert_eq!(task_05(my_slice).0, &[2, 4]);
+        let result = task_05(&t);
+        assert_eq!(result[0], &[2, 4]);
+        assert_eq!(result[1], &[100, 3, 5]);
+        assert_eq!(result[2], &[6, 7]);
+        assert_eq!(result[3], &[8, 9, 10]);
     }
 
     #[test]
     fn task_05_slice_1() {
-        let t = [2, 4, 100, 3, 5, 6, 7, 8, 9, 10];
-        let my_slice = &t;
-        assert_eq!(task_05(my_slice).1, &[100, 3, 5]);
+        let empty_slice: &[i32] = &[];
+        let result = task_05(empty_slice);
+        assert_eq!(result.len(), 4);
+        assert_eq!(&result[0], &[]);
+        assert_eq!(&result[1], &[]);
+        assert_eq!(&result[2], &[]);
+        assert_eq!(&result[3], &[]);
     }
 
     #[test]
     fn task_05_slice_2() {
-        let t = [2, 4, 100, 3, 5, 6, 7, 8, 9, 10];
-        let my_slice = &t;
-        assert_eq!(task_05(my_slice).2, &[6, 7]);
+        let slice: &[i32] = &[2];
+        let result = task_05(slice);
+        assert_eq!(result.len(), 4);
+        assert_eq!(&result[0], &[]);
+        assert_eq!(&result[1], &[]);
+        assert_eq!(&result[2], &[]);
+        assert_eq!(&result[3], &[2]);
     }
 
     #[test]
     fn task_05_slice_3() {
         let t = [2, 4, 100, 3, 5, 6, 7, 8, 9, 10];
-        let my_slice = &t;
-        assert_eq!(task_05(my_slice).3, &[8, 9, 10]);
+        let result = task_05(&t);
+        assert_eq!(result.len(), 4);
     }
 }
