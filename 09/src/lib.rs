@@ -11,7 +11,7 @@ pub fn task_02(arr: &mut [i32; 3], n: usize) -> &mut i32 {
 }
 
 pub fn task_03(slice: &mut [i32], n: usize) -> &mut i32 {
-    &mut slice[slice.len() - n]
+    &mut slice[slice.len() - n - 1]
 }
 
 pub fn task_04(slice: &[i32], n: usize) -> (&[i32], &[i32]) {
@@ -50,7 +50,7 @@ mod tests {
     #[test]
     fn task_03_slice_test() {
         let mut t = [2, 4, 100, 3, 5, 6, 7, 8, 9, 10];
-        assert_eq!(*task_03(&mut t, 5), 6);
+        assert_eq!(*task_03(&mut t, 5), 5);
     }
 
     #[test]
