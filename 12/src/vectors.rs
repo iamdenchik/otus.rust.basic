@@ -8,7 +8,7 @@ pub struct Vec3 {
 impl Vec3 {
     pub fn vector_sum(&self, a: &Vec3) -> Vec3 {
         let mut c = [0; VEC3_LEN];
-        for i in 0..3 {
+        for (i, _) in self.x.iter().enumerate() {
             c[i] = self.x[i] + a.x[i];
         }
         Vec3 { x: c }
@@ -22,7 +22,7 @@ impl Vec3 {
         c
     }
 
-    pub fn default() -> Self {
+    pub fn zero() -> Self {
         Vec3 { x: [0; VEC3_LEN] }
     }
 }
@@ -49,7 +49,7 @@ mod tests {
 
     #[test]
     fn default_vec3_zero_tuple() {
-        let default_vec3 = Vec3::default();
+        let default_vec3 = Vec3::zero();
         assert_eq!(default_vec3, Vec3 { x: [0; 3] });
     }
 }

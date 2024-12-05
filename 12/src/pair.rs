@@ -16,7 +16,7 @@ impl Pair {
         self.a + self.b + other.a + other.b
     }
 
-    pub fn default() -> Self {
+    pub fn zero() -> Self {
         Pair { a: 0, b: 0 }
     }
 }
@@ -41,7 +41,7 @@ mod tests {
 
     #[test]
     fn default_pair_zero_tuple() {
-        let default_pair = Pair::default();
+        let default_pair = Pair::zero();
         assert_eq!(default_pair, Pair { a: 0, b: 0 });
     }
 }
